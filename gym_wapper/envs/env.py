@@ -79,7 +79,7 @@ class MCPDseEnv(gym.Env):
         self.sample_times = 0
 
         # init the design space and set constraint parameters
-        with open('/app/dse_env/gym_wapper/envs/config.yaml', "r") as f:
+        with open(f'/app/dse_env/gym_wapper/envs/config.yaml', "r") as f:
             self.config = yaml.safe_load(f)
         self.constraints_conf = create_constraints_conf(config_data=self.config)
         self.design_space = create_space(config_data=self.config)

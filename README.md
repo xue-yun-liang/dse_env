@@ -1,6 +1,27 @@
 # dse_env
 using gym api wapper the dse env
 
+### Quick Start
+Firstly, you need to clone this repo and install related dependencies.
+```bash
+git clone https://github.com/xue-yun-liang/dse_env.git  # clone this repo
+cd dse_env                                              # into workspace path
+pip install -e .                                        # install envs
+```
+Then, you can using wappered envs as follwing.
+```python
+import gym_wapper
+import gym
+
+print('env anme:', 'gym_wapper/MCPDseEnv-v0')
+env_ = gym.make('gym_wapper/MCPDseEnv-v0')
+env_.reset()
+for _ in range(10):
+    act = env_.sample_act()
+    next_obs, reward, done, info = env_.step(act)
+    print('observation:{}, reward:{}, done:{}, info:{}'.format(next_obs, reward, done, info))
+```
+
 ### Description
 
 This environment corresponds to the concept of multi-core processor design space
@@ -37,12 +58,12 @@ The value rrange can be adjusted by adjust the dimension_discrete's 'rrange'
 ### Rewards
 #### the reward 's compute logics:
 Reward could be compute by constraints.get_punishment()
-the equations is : R_{s_t} = \prod_{i=1}^{n} O_i(s_t) \prod_{j=1}^{m} (C_j)/(P_j(s_t))^{l_j}
-where the O_i(s_t) is the performance indicator. e.g. the optimization goal "energy" or "latency"
-where the P_j(s_t) is the constraint indicator. 
-where the C_j is the constraint indicators.
+the equations is : $R_{s_t} = \prod_{i=1}^{n} O_i(s_t) \prod_{j=1}^{m} (C_j)/(P_j(s_t))^{l_j}$
+where the $O_{i}(s_t)$ is the performance indicator. e.g. the optimization goal "energy" or "latency"
+where the $P_{j}(s_t)$ is the constraint indicator. 
+where the $C_{j}$ is the constraint indicators.
 
-**Notes there is a hyperparams threshold_ratio, it as the l_j contorl the total reward
+**Notes there is a hyperparams threshold_ratio, it as the $l_{j}$ contorl the total reward
 
 ### Starting State
 
