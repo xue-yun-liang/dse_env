@@ -6,7 +6,7 @@ from optparse import OptionParser
 from subprocess import Popen
 
 import numpy as np
-from dse_env.env.utils import read_config
+from gym_wapper.envs.utils import read_config
 
 mcpat_bin = "mcpat"
 

@@ -2,7 +2,7 @@ import numpy as np
 import torch
 import random
 
-from crldse.env.eval import evaluation_function
+from gym_wapper.envs.eval import evaluation_function
 
 class dimension_discrete:
     def __init__(

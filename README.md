@@ -5,8 +5,8 @@ using gym api wapper the dse env
 
 This environment corresponds to the concept of multi-core processor design space
 in the exploration of multi-core processor design space. A multi-core processor
-has multiple different components, including the 'core', 'l1i_size', 'l1d_size',
-'l2_size', 'l1d_assoc', 'l1i_assoc', 'l2_assoc', 'sys_clock'.At the beginning,
+has multiple different components, including the `core`, `l1i_size`, `l1d_size`,
+`l2_size`, `l1d_assoc`, `l1i_assoc`, `l2_assoc`, `sys_clock`.At the beginning,
 each variable is given a parameter, and each parameter can change the performance
 of the entire processor through sampling (this step is called an action).
 
@@ -21,7 +21,7 @@ the action is a numpy array of (8,), every element is int data type.
 The observation is a `ndarray` with shape `(8,)` with the values corresponding
 to the following 8 variables:
 
-the value rrange can be adjusted by adjust the dimension_discrete's 'rrange'
+The value rrange can be adjusted by adjust the dimension_discrete's 'rrange'
 
 | Num | Observation  | default_value   |  step    |   Min    | Max      |
 |-----|--------------|-----------------|----------|----------|----------|
@@ -35,8 +35,8 @@ the value rrange can be adjusted by adjust the dimension_discrete's 'rrange'
 | 7   | sys_clock    | 2               | 0.1      | 2.0      |  4.0     |
 
 ### Rewards
-# the reward 's compute logics:
-reward could be compute by constraints.get_punishment()
+#### the reward 's compute logics:
+Reward could be compute by constraints.get_punishment()
 the equations is : R_{s_t} = \prod_{i=1}^{n} O_i(s_t) \prod_{j=1}^{m} (C_j)/(P_j(s_t))^{l_j}
 where the O_i(s_t) is the performance indicator. e.g. the optimization goal "energy" or "latency"
 where the P_j(s_t) is the constraint indicator. 
@@ -46,7 +46,7 @@ where the C_j is the constraint indicators.
 
 ### Starting State
 
-the start state can adjust by dimension_discrete's 'default_value'
+The start state can adjust by dimension_discrete's 'default_value'
 
 ### Episode End
 
@@ -55,3 +55,11 @@ The episode ends if any one of the following occurs: when the epoches greater 50
 ### Arguments
 
 Nothing
+
+### Change the config
+
+In the ./dse_env/gym_wapper/envs/ path, the `config.yaml` file store the design space's
+parameter, change this file can fix the design space. And, in the same path, the `sim_config.yaml`
+store the simulation files' path(If you use given docker container, it not use to be fix)
+
+

@@ -3,10 +3,10 @@ import torch
 import gym
 import yaml
 
-from dse_env.env.space import design_space, create_space
-from dse_env.env.eval import evaluation_function
-from dse_env.env.constraints import create_constraints_conf
-from dse_env.env.utils import read_config, sample_index_from_2d_array
+from gym_wapper.envs.space import design_space, create_space
+from gym_wapper.envs.eval import evaluation_function
+from gym_wapper.envs.constraints import create_constraints_conf
+from gym_wapper.envs.utils import read_config, sample_index_from_2d_array
 
 
 class MCPDseEnv(gym.Env):
@@ -79,7 +79,7 @@ class MCPDseEnv(gym.Env):
         self.sample_times = 0
 
         # init the design space and set constraint parameters
-        with open('/app/icrl/crldse/env/config.yaml', "r") as f:
+        with open('/app/dse_env/gym_wapper/envs/config.yaml', "r") as f:
             self.config = yaml.safe_load(f)
         self.constraints_conf = create_constraints_conf(config_data=self.config)
         self.design_space = create_space(config_data=self.config)
