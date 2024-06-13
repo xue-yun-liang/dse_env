@@ -6,21 +6,10 @@ Firstly, you need to clone this repo and install related dependencies.
 ```bash
 git clone https://github.com/xue-yun-liang/dse_env.git  # clone this repo
 cd dse_env                                              # into workspace path
+bash pre.sh                                             # build three dirs for store
 pip install -e .                                        # install envs
 ```
-Then, you can using wappered envs as follwing.
-```python
-import gym_wapper
-import gym
-
-print('env anme:', 'gym_wapper/MCPDseEnv-v0')
-env_ = gym.make('gym_wapper/MCPDseEnv-v0')
-env_.reset()
-for _ in range(10):
-    act = env_.sample_act()
-    next_obs, reward, done, info = env_.step(act)
-    print('observation:{}, reward:{}, done:{}, info:{}'.format(next_obs, reward, done, info))
-```
+Then, you can run the test file by `python3 test.py`.After, you will see the output as the follow image.![eval_res](./asset/eval_res.png)
 
 ### Description
 
@@ -81,6 +70,6 @@ Nothing
 
 In the ./dse_env/gym_wapper/envs/ path, the `config.yaml` file store the design space's
 parameter, change this file can fix the design space. And, in the same path, the `sim_config.yaml`
-store the simulation files' path(If you use given docker container, it not use to be fix)
+store the simulation files' path(If you use given docker container, it should not use to be changed.)
 
 
