@@ -208,6 +208,7 @@ def run_mcpat(obs):
         metrics = getevaluation(f"/app/mcpat_out/test.log", f"/app/gem_sim_out/gem_output.txt")
     else:
         print("mcpat sim fail")
+        metrics = None
     
     return metrics
 

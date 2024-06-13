@@ -9,7 +9,7 @@ cd dse_env                                              # into workspace path
 bash pre.sh                                             # build three dirs for store
 pip install -e .                                        # install envs
 ```
-Then, you can run the test file by `python3 test.py`.After, you will see the output as the follow image.![eval_res](./asset/eval_res.png)
+Then, you can run the test file by `cd gym_wapper/envs && python3 test.py`.After, you will see the output as the follow image.![eval_res](./asset/eval_res.png)
 
 ### Description
 
