@@ -1,6 +1,7 @@
 import numpy as np
 import torch
 import random
+import yaml
 
 from gym_wapper.envs.eval import evaluation_function
 
@@ -280,8 +281,9 @@ class environment_erdse:
         print(f"Period\tResult", end="\n", file=self.result_log)
 
         # the next one line actural: self.design_space = create_space_erdse()
-        from crldse.utils.core import read_config
-        config_data = read_config('config.yaml')
+        
+        with open('./config.yaml', "r") as f:
+            config_data = yaml.safe_load(f)
         self.design_space = create_space(config_data=config_data)
 
         self.design_space_dimension = self.design_space.get_length()
@@ -407,9 +409,9 @@ class environment_erdse:
 
 
 if __name__ == "__main__":
-    from crldse.utils.core import read_config
-    conf_data = read_config('./config.yaml')
-    space = create_space(conf_data)
+    with open('./config.yaml', "r") as f:
+        config_data = yaml.safe_load(f)
+    space = create_space(config_data)
     space.print_state()
     print(space.get_obs())
     # for i in range(space.get_length()):

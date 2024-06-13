@@ -195,7 +195,7 @@ def split_stats_file():
 def run_mcpat(obs):
     """sim step3: convert the results of GEM5 to XML format and run mcpat sim, return metrics"""
     trans = Popen(["python3", f"/app/cMcPAT/Scripts/GEM5ToMcPAT.py", \
-        f"/app/gem_sim_out/gem_output.txt", f"/app/m5out/config.json", 
+        f"/app/gem_sim_out/gem_output.txt", f"/app/dse_env/gym_wapper/envs/m5out/config.json", 
         f"/app/cMcPAT/mcpat/ProcessorDescriptionFiles/x86_AtomicSimpleCPU_template_core_{obs['core']}.xml", 
         "-o", f"/app/mcpat_in/test.xml"])
     trans.wait()
@@ -208,7 +208,6 @@ def run_mcpat(obs):
         metrics = getevaluation(f"/app/mcpat_out/test.log", f"/app/gem_sim_out/gem_output.txt")
     else:
         print("mcpat sim fail")
-        metrics = {"latency":1, "Area":1, "power":1, "energy":1}
     
     return metrics
 

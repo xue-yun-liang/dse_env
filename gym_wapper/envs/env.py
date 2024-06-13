@@ -6,7 +6,7 @@ import yaml
 from gym_wapper.envs.space import design_space, create_space
 from gym_wapper.envs.eval import evaluation_function
 from gym_wapper.envs.constraints import create_constraints_conf
-from gym_wapper.envs.utils import read_config, sample_index_from_2d_array
+from gym_wapper.envs.utils import sample_index_from_2d_array
 
 
 class MCPDseEnv(gym.Env):
@@ -111,30 +111,33 @@ class MCPDseEnv(gym.Env):
         if not done:
             # step2: the eval funct give the performance result for next obs
             eval_res = self.eval_func.eval(next_obs)
-            # eval_res has {'latency', 'Area', 'energy', 'power'}
-            latency = eval_res['latency']*1000
-            energy = eval_res['energy']
-            
-            # TODO: step3: update the config.constraints's performance values
-            constraint_new_val = {}
-            for indicator_name, indicator_val in eval_res.items():
-                cur_th_name = indicator_name.upper()+"_TH"
-                if cur_th_name in self.constraint_name_list:
-                    constraint_new_val[cur_th_name] = indicator_val
-            self.constraints_conf.constraints.update(constraint_new_val)
-            # coumpute the reward
-            reward = self.constraints_conf.constraints.get_punishment()
-            punishment = 1 if reward == 0 else reward
-            reward = 1000 / (latency * punishment)
-            if self.config['goal'] == "latency":
-                self.result = latency
-            elif self.config['goal'] == "energy":
-                self.result = energy
-            elif self.config['goal'] == "latency&energy":
-                self.result = latency * energy
+            if eval_res != None:
+                # eval_res has {'latency', 'Area', 'energy', 'power'}
+                latency = eval_res['latency']*1000
+                energy = eval_res['energy']
+                
+                # TODO: step3: update the config.constraints's performance values
+                constraint_new_val = {}
+                for indicator_name, indicator_val in eval_res.items():
+                    cur_th_name = indicator_name.upper()+"_TH"
+                    if cur_th_name in self.constraint_name_list:
+                        constraint_new_val[cur_th_name] = indicator_val
+                self.constraints_conf.constraints.update(constraint_new_val)
+                # coumpute the reward
+                reward = self.constraints_conf.constraints.get_punishment()
+                punishment = 1 if reward == 0 else reward
+                reward = 1000 / (latency * punishment)
+                if self.config['goal'] == "latency":
+                    self.result = latency
+                elif self.config['goal'] == "energy":
+                    self.result = energy
+                elif self.config['goal'] == "latency&energy":
+                    self.result = latency * energy
+                    
+                self.sample_times += 1
+            else:
+                next_obs, reward, done = None, -1, True
 
-        self.sample_times += 1
-        
         # finally, the step func return next_state, reward, done, metadata
         return next_obs, reward, done, {}
 
@@ -155,7 +158,7 @@ class MCPDseEnv(gym.Env):
 
 if __name__ == "__main__":
     # test code for env wapper
-    env = gym.make("MCPDseEnv-v0")
+    env = gym.make("gym_wapper/MCPDseEnv-v0")
     obs = env.reset()
     print(obs)
     for _ in range(2):

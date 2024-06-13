@@ -136,8 +136,7 @@ def print_config(constraints_conf):
 
 if __name__ == "__main__":
     import yaml
-    from crldse.utils.core import read_config
-    with open('/app/dse_env/env/config.yaml', "r") as f:
+    with open('./config.yaml', "r") as f:
         config_data = yaml.safe_load(f)
     test_conf = create_constraints_conf(config_data=config_data)
     print_config(test_conf)
